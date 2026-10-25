@@ -1,0 +1,55 @@
+{
+  "jobs": [
+    {
+      "id": "42bf1ba62dd8",
+      "name": "coder: morning repo check",
+      "prompt": "You are Coder. Check tylerprogramming/skoolos and tylerprogramming/jarvis-public for anything that needs a human.\n\nSteps:\n1. Run: gh api repos/tylerprogramming/skoolos/commits --jq '.[0:10][] | \"\\(.sha[:7]) \\(.commit.author.date[:10]) \\(.commit.message | split(\"\\n\")[0])\"' and same for jarvis-public. Note commits from the last 24h.\n2. Run: gh run list --repo tylerprogramming/skoolos --limit 5 --json status,conclusion,name,headSha and same for jarvis-public. Report any run with conclusion != success.\n3. Run: gh pr list --repo tylerprogramming/skoolos --state open and gh issue list --repo tylerprogramming/skoolos --state open --limit 10. Same for jarvis-public.\n4. For each commit in the last 24h with more than 30 lines changed, fetch its diff (gh api repos/OWNER/REPO/commits/SHA --jq '.files[] | {filename, patch}') and review it with the code-review skill. Only report Critical or Warning findings.\n\nOutput: one Slack message. Lead with the single most important thing. Counts, not names, for anything routine. If every check is green and no findings, reply with exactly: All green on skoolos and jarvis-public. Nothing needs you.",
+      "skills": [
+        "code-review"
+      ],
+      "skill": "code-review",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * 1-5",
+        "display": "0 8 * * 1-5"
+      },
+      "schedule_display": "0 8 * * 1-5",
+      "repeat": {
+        "times": null,
+        "completed": 31
+      },
+      "enabled": false,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-12T11:35:24.698312-04:00",
+      "next_run_at": "2026-10-26T08:00:00-04:00",
+      "last_run_at": "2026-10-23T08:31:14.621723-04:00",
+      "last_error": null,
+      "last_delivery_error": "no delivery target resolved for deliver=slack",
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "slack",
+      "origin": null,
+      "enabled_toolsets": null,
+      "workdir": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-23T08:00:00-04:00",
+        "dispatched_at": "2026-10-23T08:06:19.641278-04:00",
+        "lateness_seconds": 379.6,
+        "kind": "late"
+      },
+      "fire_claim": null
+    }
+  ],
+  "updated_at": "2026-10-23T08:31:14.622234-04:00"
+}

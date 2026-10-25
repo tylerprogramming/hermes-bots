@@ -1,0 +1,13 @@
+model:
+  base_url: ''
+  default: claude-fable-5-1
+  provider: anthropic
+plugins:
+  enabled: []
+agent: {}
+display:
+  personality: creative
+timezone: EST
+onboarding:
+  seen:
+    tool_progress_prompt: true

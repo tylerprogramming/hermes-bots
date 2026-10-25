@@ -1,0 +1,13 @@
+name: packager
+version: 1.0.0
+description: "Video packaging bot: turns a research file into titles, hooks, script, filming guide, description, SEO"
+hermes_requires: ">=0.20.0"
+author: "Tyler Reed"
+license: "MIT"
+env_requires:
+  - name: ANTHROPIC_API_KEY
+    description: "Model access (or swap model.provider in config.yaml)"
+    required: true
+  - name: SLACK_BOT_TOKEN
+    description: "Only if you want this bot in Slack"
+    required: false

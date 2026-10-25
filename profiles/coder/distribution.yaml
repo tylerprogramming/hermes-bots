@@ -1,0 +1,16 @@
+name: coder
+version: 1.0.0
+description: "Engineering bot: reviews PRs with gh, watches CI on a weekday schedule, opens small PRs on request"
+hermes_requires: ">=0.20.0"
+author: "Tyler Reed"
+license: "MIT"
+env_requires:
+  - name: ANTHROPIC_API_KEY
+    description: "Model access (or swap model.provider in config.yaml)"
+    required: true
+  - name: GH_TOKEN
+    description: "Optional; gh auth login works too"
+    required: false
+  - name: SLACK_BOT_TOKEN
+    description: "Only if you want this bot in Slack"
+    required: false

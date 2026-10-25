@@ -1,0 +1,56 @@
+{
+  "jobs": [
+    {
+      "id": "bff2da40e427",
+      "name": "Content: morning brief",
+      "prompt": "Run the content-brief skill. Read status.md, the newest analytics/daily JSON, video-ideas.md, and research from the last 7 days. Send the brief in the exact output shape from the skill, under 900 chars, ending with: Reply with a number and I will research it and hand it to Packager.",
+      "skills": [
+        "content-brief"
+      ],
+      "skill": "content-brief",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 7 * * 1-5",
+        "display": "45 7 * * 1-5"
+      },
+      "schedule_display": "45 7 * * 1-5",
+      "repeat": {
+        "times": null,
+        "completed": 25
+      },
+      "enabled": false,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-21T11:00:24.754566-04:00",
+      "next_run_at": "2026-10-26T07:45:00-04:00",
+      "last_run_at": "2026-10-23T09:03:23.007634-04:00",
+      "last_error": null,
+      "last_delivery_error": "no delivery target resolved for deliver=slack",
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "slack",
+      "origin": null,
+      "enabled_toolsets": null,
+      "workdir": null,
+      "attach_to_session": true,
+      "fire_claim": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-23T07:45:00-04:00",
+        "dispatched_at": "2026-10-23T07:54:30.092632-04:00",
+        "lateness_seconds": 570.1,
+        "kind": "late"
+      }
+    }
+  ],
+  "updated_at": "2026-10-23T09:03:23.008246-04:00"
+}
