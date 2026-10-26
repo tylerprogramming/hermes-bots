@@ -95,6 +95,46 @@ Keep `--host 127.0.0.1`. Tailscale proxies to loopback; binding wider is unneces
 **The first tailnet curl returns `000`** while Tailscale mints the HTTPS cert. Retry after ~10s before
 calling it broken.
 
+### 3b. Keep the machine awake (macOS desktops)
+
+A Mac that sleeps takes the gateway, dashboard and Tailscale down with it; Conduit drops the moment the
+screen blanks. Check `pmset -g | grep -E '^\s*(sleep|displaysleep)'`. If `sleep` is not 0:
+
+- Settings: System Settings -> Energy -> **Prevent automatic sleeping when the display is off** (no sudo).
+- Or: `sudo pmset -a sleep 0 disksleep 0` (needs the user's password; cannot run from a tool call).
+
+Display sleep can stay on; only system sleep matters. Rollback: `sudo pmset -a sleep 1 disksleep 10`.
+
+### 3c. Linux / VPS variant (systemd instead of launchd)
+
+Tailscale CLI is on PATH (`tailscale serve --bg 9119` works as-is). Replace the LaunchAgent with a user
+service at `~/.config/systemd/user/hermes-dashboard.service`:
+
+```ini
+[Unit]
+Description=Hermes dashboard (Conduit backend)
+After=network-online.target
+
+[Service]
+ExecStart=%h/.hermes/hermes-agent/venv/bin/hermes dashboard --no-open --skip-build --host 127.0.0.1 --port 9119
+Restart=always
+RestartSec=5
+Environment=HOME=%h
+
+[Install]
+WantedBy=default.target
+```
+
+```bash
+systemctl --user daemon-reload && systemctl --user enable --now hermes-dashboard
+loginctl enable-linger "$USER"          # keep user services running after logout / before login
+systemctl --user status hermes-dashboard | head -5
+curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:9119/api/sessions   # 401
+```
+
+Rollback: `systemctl --user disable --now hermes-dashboard && rm ~/.config/systemd/user/hermes-dashboard.service`.
+No sleep step on a server. The gateway itself is `hermes gateway install` on both platforms.
+
 ## 4. Notifier plugin
 
 ```bash
